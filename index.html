@@ -68,9 +68,15 @@
             isValid: true
         };
 
-        // 页面加载完成后渲染数据
+        // 页面加载完成后渲染数据并绑定下载按钮
         document.addEventListener('DOMContentLoaded', function () {
             renderReport(reportData);
+            // 绑定下载按钮点击事件 - 直接下载 PDF 报告
+            var downloadBtn = document.getElementById('downloadBtn');
+            if (downloadBtn) {
+                downloadBtn.href = 'report.pdf';
+                downloadBtn.download = 'JN226-220454.pdf';
+            }
         });
 
         function renderReport(data) {
@@ -96,11 +102,6 @@
             document.getElementById('txt_specificationModel').textContent = data.specificationModel;
             document.getElementById('txt_manufacturerName').textContent = data.manufacturerName;
             document.getElementById('txt_testingBasisItems').textContent = data.testingBasisItems;
-        }
-
-        // 报告下载（纯前端：调用浏览器打印，用户可选择保存为 PDF）
-        function reportDown() {
-            window.print();
         }
     </script>
 </head>
@@ -167,7 +168,7 @@
                     <p id="txt_testingBasisItems">无</p>
                 </li>
                 <li>
-                    <a class="download-link" href="javascript:;" onclick="reportDown()">报告下载</a>
+                    <a id="downloadBtn" class="download-link" href="javascript:void(0)">报告下载</a>
                 </li>
 
             </ul>
